@@ -1,0 +1,20 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Home | {% endblock title %}
+
+{% block content %}
+<section class="hero ">
+  <div class="hero-body">
+    <div class="container">
+      <section class="section">
+        <div class="columns is-variable is-8">
+          <div class="column is-5 is-offset-1 ">
+            {% for post in posts %}
+              {% include  'core/post.html' %}
+            {% endfor %}
+          </div>
+      </section>
+    </div>
+  </div>
+</section>
+{% endblock content %}
