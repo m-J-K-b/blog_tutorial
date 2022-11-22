@@ -1,0 +1,58 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+{{ post.title }} |
+{% endblock title %}
+
+{% block content %}
+<section class="hero ">
+    <div class="hero-body">
+        <div class="container">
+            <section class="section">
+                <div class="columns is-variable is-1 is-centered">
+                    <div class="column is-10">
+                        <div class="content is-medium">
+                            {% if post.image %}
+                            <figure class="image">
+                              <img src="{{ post.image.url }}">
+                            </figure>
+                            {% endif %}
+                            <h2 class="subtitle is-5 has-text-grey">{{ post.date_added | date:'M-d-Y H:i'}} | added {{post.date_added | timesince }} ago</h2>
+                            <h1 class="title has-text-black is-3">{{ post.title }}</h1>
+                            <p class="has-text-dark"><strong>{{post.intro}}</strong></p>
+                            <p style="overflow-wrap: break-word;" >{{ post.body }}</p>
+
+                            <p><small>Category: <a href="{% url 'category_detail' post.category.slug %}">{{ post.category}}</a></small></p>
+
+                            <hr>
+
+                            <h2 class="subtitle is-4">Comments</h2>
+                            <form method="post" class="mb-6">
+                                {% csrf_token %}
+                                {{ form.as_p }}
+
+                                <div class="field">
+                                    <div class="control">
+                                        <button class="button is-success">Submit comment</button>
+                                    </div>
+                                </div>
+                            </form>
+
+                            {% for comment in post.comments.all %}
+                            <article class="media box">
+                                <div class="media-content">
+                                    <strong>{{ comment.name }}</strong> <small>added {{comment.date_added | timesince}}
+                                        ago</small>
+                                    <br>
+                                    {{comment.body}}
+                                </div>
+                            </article>
+                            {% endfor %}
+
+                        </div>
+                    </div>
+            </section>
+        </div>
+    </div>
+</section>
+{% endblock content %}

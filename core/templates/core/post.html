@@ -1,0 +1,12 @@
+<div class="content is-medium">
+    <a href="{% url 'post_detail' post.category.slug post.slug %}" class="box pt-6">
+      {% if post.image %}
+      <figure class="image mb-6">
+        <img src="{{ post.image.url }}">
+      </figure>
+      {% endif %}
+      <h2 class="subtitle is-5 has-text-grey">{{ post.date_added | date:'M-d-Y H:i'}} | added {{post.date_added| timesince }} ago</h2>
+      <h1 class="title has-text-black is-3">{{ post.title }}</h1>
+      <p class="has-text-dark">{{post.intro}}</p>
+    </a>
+  </div>
